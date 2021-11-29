@@ -3,7 +3,7 @@ let formElement = document.querySelector('.popup__form');
 let EditButtonPopup = document.querySelector('.profile__edit-button');
 let CloseButtonPopup = document.querySelector('.popup__close-button');
 
-let popupForm = document.querySelector('.popup__edit');
+let popupForm = document.querySelector('.popup');
 
 let currentName = document.querySelector('.profile__name');
 let currentJob = document.querySelector('.profile__description');
@@ -20,12 +20,12 @@ function FormValidate(data) {
 Если она открыта - закрывает, если закрыта - открывает.
 */
 function FormShowHide() {
-    if (popupForm.classList.contains('popup__enabled')) {
-        popupForm.classList.remove('popup__enabled')
-        popupForm.classList.add('popup__disabled')
+    if (popupForm.classList.contains('popup_enabled')) {
+        popupForm.classList.remove('popup_enabled')
+        popupForm.classList.add('popup_disabled')
     } else {
-        popupForm.classList.add('popup__enabled')
-        popupForm.classList.remove('popup__disabled')
+        popupForm.classList.add('popup_enabled')
+        popupForm.classList.remove('popup_disabled')
     }
 }
 
