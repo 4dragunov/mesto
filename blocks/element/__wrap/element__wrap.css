@@ -1,0 +1,13 @@
+.element__wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 21px;
+    padding-right: 20px;
+    align-items: baseline;
+    margin-top: 25px;
+    margin-bottom: 31px;
+
+
+
+}
