@@ -5,8 +5,7 @@
     box-sizing: border-box;
     border-radius: 2px;
     background-color: black;
-
-    background-image: url("../../../images/addButton.svg");
+    background-image: url("../../../images/addbutton.svg");
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;

@@ -15,28 +15,18 @@
 	<img src="images/logo.svg" class="header__logo" alt="Логотип">
 </header>
 <main class="content">
-	<div class="popup popup_disabled">
-		<div class="popup__container">
-			<h3 class="popup__title"> Редактировать профиль</h3>
-			<img class="popup__close-button" src="images/closeButton.svg" alt="Закрыть">
-			<form class="popup__form" name="edit" id="edit">
-				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя">
-				<input type="text" class="popup__input popup__input_description" name="description" placeholder="Работа">
-				<button type="submit" class="popup__save-button"> Сохранить </button>
-				description
-			</form>
-		</div>
-		
+	
+	
 	</div>
 	<section class="profile">
 		<div class="profile__content-wrap">
-			<img src="images/avatarImage.jpg" class="profile__avatar" alt="Аватарка">
+			<img src="images/avatarimage.jpg" class="profile__avatar" alt="Аватарка">
 			<div class="profile__info">
 				<div class="profile__info-wrap">
 					<h1 class="profile__name">
 						Жак-Ив Кусто
 					</h1>
-					<button type="button" class="profile__edit-button"></button>
+					<button type="button" class="profile__edit-button" type="button"></button>
 				</div>
 				<p class="profile__description">
 					Исследователь океана
@@ -45,65 +35,87 @@
 		
 		</div>
 		
-		<button class="profile__add-button"></button>
+		<button class="profile__add-button" type="button"></button>
 	</section>
 	<section class="elements">
-		<div class="element">
-			<img src="images/elementKarachaevsk.jpg" class="element__image" alt="Карачаевск">
+<!--		<div class="element">
+			<img src="images/elementkarachaevsk.jpg" class="element__image" alt="Карачаевск">
 			<div class="element__wrap">
 				<h2 class="element__name">
 					Карачаевск
 				</h2>
-				<button class="element__like-button element__like-button_enabled"></button>
+				<button class="element__like-button element__like-button_enabled" type="button"></button>
 			</div>
 		</div>
 		<div class="element">
-			<img src="images/elementSPB.jpg" class="element__image" alt="Санкт-Петербург">
+			<img src="images/elementspb.jpg" class="element__image" alt="Санкт-Петербург">
 			<div class="element__wrap">
 				<h2 class="element__name">
 					Петербург
 				</h2>
-				<button class="element__like-button"></button>
+				<button class="element__like-button" type="button"></button>
 			</div>
 		</div>
 		<div class="element">
-			<img src="images/elementAlaska.jpg" class="element__image" alt="Аляска">
+			<img src="images/elementalaska.jpg" class="element__image" alt="Аляска">
 			<div class="element__wrap">
 				<h2 class="element__name">
 					Аляска
 				</h2>
-				<button class="element__like-button"></button>
+				<button class="element__like-button" type="button"></button>
 			</div>
 		</div>
 		<div class="element">
-			<img src="images/elementGranCanaria.jpg" class="element__image" alt="ГранКанария">
+			<img src="images/elementgrancanaria.jpg" class="element__image" alt="ГранКанария">
 			<div class="element__wrap">
 				<h2 class="element__name">
 					Гран-Канария
 				</h2>
-				<button class="element__like-button"></button>
+				<button class="element__like-button" type="button"></button>
 			</div>
 		</div>
 		<div class="element">
-			<img src="images/elementFillipines.jpg" class="element__image" alt="Филиппины">
+			<img src="images/elementfillipines.jpg" class="element__image" alt="Филиппины">
 			<div class="element__wrap">
 				<h2 class="element__name">
 					Филиппины
 				</h2>
-				<button class="element__like-button"></button>
+				<button class="element__like-button" type="button"></button>
 			</div>
 		</div>
 		<div class="element">
-			<img src="images/elementLondon.jpg" class="element__image" alt="Лондон">
+			<img src="images/elementlondon.jpg" class="element__image" alt="Лондон">
 			<div class="element__wrap">
 				<h2 class="element__name">
 					Лондон
 				</h2>
-				<button class="element__like-button"></button>
+				<button class="element__like-button" type="button"></button>
 			</div>
-		</div>
+		</div>-->
+		
+<!--
+				<div class="element">
+					<img src="images/elementlondon.jpg" class="element__image" alt="Лондон">
+					<div class="element__wrap">
+						<h2 class="element__name">
+							Лондон
+						</h2>
+						<button class="element__like-button" type="button"></button>
+					</div>
+				</div>-->
 	
 	</section>
+	<div class="popup popup_disabled">
+		<div class="popup__container">
+			<h3 class="popup__title"> Редактировать профиль</h3>
+			<button class="popup__close-button" type="button"></button>
+			<form class="popup__form" name="edit" id="edit">
+				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя">
+				<input type="text" class="popup__input popup__input_description" name="description" placeholder="Работа">
+				<button type="submit" class="popup__save-button"> Сохранить</button>
+			
+			</form>
+		</div>
 
 </main>
 <footer class="footer">
@@ -112,6 +124,6 @@
 	</p>
 
 </footer>
-<script src="script.js"></script>
+<script src="scripts/script.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 .element__like-button {
-    background-image: url("../../../images/likeButton.svg");
+    background-image: url("../../../images/likebutton.svg");
     background-position: center;
     background-repeat: no-repeat;
     width: 22px;
@@ -7,7 +7,7 @@
     outline: none;
     cursor: pointer;
     background-color: #FFFFFF;
-    border: 0px;
+    border: 0;
 
 }
 

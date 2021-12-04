@@ -9,9 +9,8 @@
     column-gap: 17px;
     margin: 50px auto 0;
     justify-content: center;
-    /*
-    max-width: 900px;
-    */
+
+    min-height: 60%;
 
 }
 
@@ -21,7 +20,6 @@
     .elements {
         width: calc(100% - 2*100px);
 
-
     }
 }
 
@@ -29,5 +27,6 @@
 @media screen and (max-width: 870px) {
     .elements {
         width: calc(100% - 2*19px);
+
     }
 }

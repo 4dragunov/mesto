@@ -1,13 +1,17 @@
 .popup__close-button {
-    position: absolute;
-    top: -40px;
-    right: -40px;
+    position: fixed;
+    transform: translate(440px, -40px);
     cursor: pointer;
     /*
     intrinsicsize: 32px 32px;
     */
     width: 32px;
     height: 32px;
+    background-image: url("../../../images/closebutton.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
+    border: 0;
 
 
 }
@@ -20,7 +24,6 @@
     .popup__close-button {
         width: 20px;
         height: 20px;
-        top: -34px;
-        right: 0;
+        transform: translate(265px, -35px);
     }
 }
