@@ -13,6 +13,7 @@
     color: #FFFFFF;
     cursor: pointer;
     border: 0;
+    border-radius: 2px;
 
 }
 
@@ -23,6 +24,6 @@
 @media screen and (max-width: 870px) {
     .popup__save-button {
         width: 238px;
-        height: 46px;
+        min-height: 46px;
     }
 }
