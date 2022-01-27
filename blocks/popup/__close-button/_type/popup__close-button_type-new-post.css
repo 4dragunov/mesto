@@ -1,0 +1,13 @@
+.popup__close-button_type-new-post {
+    position: fixed;
+    transform: translate(440px, -40px);
+}
+
+@media screen and (max-width: 870px) {
+    .popup__close-button_type-new-post {
+        width: 20px;
+        height: 20px;
+        transform: translate(265px, -35px);
+        background-size: 100%;
+    }
+}

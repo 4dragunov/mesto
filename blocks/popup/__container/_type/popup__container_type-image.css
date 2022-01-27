@@ -1,0 +1,9 @@
+.popup__container_type-image {
+    background-color: transparent;
+    position: relative;
+/*    max-width: 75vw;
+    max-height: 75vh;*/
+    object-fit: contain;
+    object-position: center;
+   /* overflow: hidden;*/
+}

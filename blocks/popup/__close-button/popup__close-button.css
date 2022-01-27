@@ -1,10 +1,5 @@
 .popup__close-button {
-    position: fixed;
-    transform: translate(440px, -40px);
     cursor: pointer;
-    /*
-    intrinsicsize: 32px 32px;
-    */
     width: 32px;
     height: 32px;
     background-image: url("../../../images/closebutton.svg");
@@ -20,11 +15,3 @@
     opacity: .6;
 }
 
-@media screen and (max-width: 870px) {
-    .popup__close-button {
-        width: 20px;
-        height: 20px;
-        transform: translate(265px, -35px);
-        background-size: 100%;
-    }
-}

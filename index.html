@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,6 @@
 </header>
 <main class="content">
 	
-	
 	<section class="profile">
 		<div class="profile__content-wrap">
 			<img src="images/avatarimage.jpg" class="profile__avatar" alt="Аватарка">
@@ -31,83 +30,17 @@
 					Исследователь океана
 				</p>
 			</div>
-		
 		</div>
-		
 		<button class="profile__add-button" type="button"></button>
 	</section>
-	<section class="elements">
-		<div class="element">
-			<img src="images/elementkarachaevsk.jpg" class="element__image" alt="Карачаевск">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Карачаевск
-				</h2>
-				<button class="element__like-button element__like-button_enabled" type="button"></button>
-			</div>
-		</div>
-		<div class="element">
-			<img src="images/elementspb.jpg" class="element__image" alt="Санкт-Петербург">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Петербург
-				</h2>
-				<button class="element__like-button" type="button"></button>
-			</div>
-		</div>
-		<div class="element">
-			<img src="images/elementalaska.jpg" class="element__image" alt="Аляска">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Аляска
-				</h2>
-				<button class="element__like-button" type="button"></button>
-			</div>
-		</div>
-		<div class="element">
-			<img src="images/elementgrancanaria.jpg" class="element__image" alt="ГранКанария">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Гран-Канария
-				</h2>
-				<button class="element__like-button" type="button"></button>
-			</div>
-		</div>
-		<div class="element">
-			<img src="images/elementfillipines.jpg" class="element__image" alt="Филиппины">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Филиппины
-				</h2>
-				<button class="element__like-button" type="button"></button>
-			</div>
-		</div>
-		<div class="element">
-			<img src="images/elementlondon.jpg" class="element__image" alt="Лондон">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Лондон
-				</h2>
-				<button class="element__like-button" type="button"></button>
-			</div>
-		</div>
-		
-		<div class="element">
-			<img src="images/elementlondon.jpg" class="element__image" alt="Лондон">
-			<div class="element__wrap">
-				<h2 class="element__name">
-					Лондон
-				</h2>
-				<button class="element__like-button" type="button"></button>
-			</div>
-		</div>
 	
-	</section>
-	<div class="popup popup_disabled">
+	<section class="elements"></section>
+	
+	<div class="popup popup_type-profile-edit popup_disabled" id="profileEditPopup">
 		<div class="popup__container">
 			<h3 class="popup__title"> Редактировать профиль</h3>
-			<button class="popup__close-button" type="button"></button>
-			<form class="popup__form" name="edit" id="edit">
+			<button class="popup__close-button popup__close-button_type-profile-edit" type="button"></button>
+			<form class="popup__form" name="edit" id="profileEdit">
 				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя">
 				<input type="text" class="popup__input popup__input_description" name="description" placeholder="Работа">
 				<button type="submit" class="popup__save-button"> Сохранить</button>
@@ -115,14 +48,46 @@
 			</form>
 		</div>
 	</div>
-
+	
+	<div class="popup popup_type-new-post popup_disabled" id="newPostPopup">
+		<div class="popup__container">
+			<h3 class="popup__title"> Новое место </h3>
+			<button class="popup__close-button popup__close-button_type-new-post" type="button"></button>
+			<form class="popup__form" name="newPost" id="newPost">
+				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название">
+				<input type="text" class="popup__input popup__input_description" name="description"
+							 placeholder="Ссылка на картинку">
+				<button type="submit" class="popup__save-button"> Создать</button>
+			</form>
+		</div>
+	</div>
+	
+	<div class="popup popup_type-image popup_disabled" id="imageViewPopup">
+		<div class="popup__container_type-image">
+			<button type="button" class="popup__close-button popup__close-button_type-image"></button>
+			<img class="popup__image" src="#" alt="Описание изображения">
+			<p class="popup__image-desription">#</p>
+		</div>
+	</div>
 </main>
 <footer class="footer">
 	<p class="footer__copyright">
-		© 2020 Mesto Russia
+		© 2022 Mesto Russia
 	</p>
 
 </footer>
+
+<template id="post-element">
+	<div class="element">
+		<button class="element__trash-button" type="button"></button>
+		<img src="#" class="element__image" alt="Изображение">
+		<div class="element__wrap">
+			<h2 class="element__name">#</h2>
+			<button class="element__like-button" type="button"></button>
+		</div>
+	</div>
+</template>
+
 <script src="scripts/script.js"></script>
 </body>
 </html>
