@@ -130,7 +130,9 @@ function postCreate(postName, postLink) {
 Функция отображения изображения в popup
 */
 function showImagePopup(postName, postLink) {
-    imagePopup.classList.toggle('popup_disabled');
+    imagePopup.classList.add('popup_enabled');
+    imagePopup.classList.remove('popup_disable');
+
     imagePopupLink.src = postLink;
     imagePopupName.textContent = postName;
 
@@ -158,17 +160,32 @@ newPostButtonPopup.addEventListener('click', () => {
 
 
 closeEditPopup.addEventListener('click', () => {
-    profilePopup.classList.toggle('popup_enabled')
+    profilePopup.classList.remove('popup_enabled')
+    profilePopup.classList.add('popup_disabled')
+
 });
 
 
 closeNewPostPopup.addEventListener('click', () => {
-    newPostPopup.classList.toggle('popup_enabled')
+    newPostPopup.classList.remove('popup_enabled')
+    newPostPopup.classList.add('popup_disabled')
+
+    /*
+        #newPostPopup.classList.toggle('popup_enabled')
+    */
 });
 
 closeImagePopup.addEventListener('click', () => {
-    console.log('sdfasdfsadf')
-    imagePopup.classList.toggle('popup_disabled')
+/*    console.log('sdfasdfsadf')
+    imagePopup.classList.remove('popup_enabled')
+    imagePopup.classList.add('popup_disabled')*/
+    imagePopup.classList.remove('popup_enabled')
+    imagePopup.classList.add('popup_disabled')
+
+
+    /*
+        imagePopup.classList.toggle('popup_enabled')
+    */
 });
 
 
