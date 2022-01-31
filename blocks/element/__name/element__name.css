@@ -10,6 +10,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: calc(246px - 22px);
+    max-width: calc(246px - 36px);
 
 }
