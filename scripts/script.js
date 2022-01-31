@@ -37,7 +37,7 @@ let newPostName = newPostFormElement.querySelector('.popup__input_name');
 let newPostLink = newPostFormElement.querySelector('.popup__input_description');
 let imagePopup = document.querySelector('.popup_type-image')
 let imagePopupLink = imagePopup.querySelector('.popup__image')
-let imagePopupName = imagePopup.querySelector('.popup__image-desription')
+let imagePopupName = imagePopup.querySelector('.popup__image-description')
 let closeEditPopup = profilePopup.querySelector('.popup__close-button');
 let closeNewPostPopup = newPostPopup.querySelector('.popup__close-button');
 let closeImagePopup = imagePopup.querySelector('.popup__close-button');
@@ -169,31 +169,19 @@ closeEditPopup.addEventListener('click', () => {
 closeNewPostPopup.addEventListener('click', () => {
     newPostPopup.classList.remove('popup_enabled')
     newPostPopup.classList.add('popup_disabled')
-
-    /*
-        #newPostPopup.classList.toggle('popup_enabled')
-    */
 });
 
 closeImagePopup.addEventListener('click', () => {
-/*    console.log('sdfasdfsadf')
-    imagePopup.classList.remove('popup_enabled')
-    imagePopup.classList.add('popup_disabled')*/
     imagePopup.classList.remove('popup_enabled')
     imagePopup.classList.add('popup_disabled')
-
-
-    /*
-        imagePopup.classList.toggle('popup_enabled')
-    */
 });
 
 
 document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
-        if (imagePopup.classList.contains('popup_disabled') != 1) {
-            imagePopup.classList.toggle('popup_disabled');
-        }
+        imagePopup.classList.remove('popup_enabled')
+        imagePopup.classList.add('popup_disabled')
+        
     }
 });
 

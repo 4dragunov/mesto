@@ -1,0 +1,15 @@
+.popup__container_type-profile-edit {
+    width: 430px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+
+
+@media screen and (max-width: 870px) {
+    .popup__container_type-profile-edit {
+        width: 282px;
+
+    }
+}
