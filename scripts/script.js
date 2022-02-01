@@ -1,94 +1,75 @@
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+/*Арина, здравствуйте!
+Большое спасибо за рьевью!) 
+Вопрос - я добавил классы "открытия и закрытия" только для того, чтобы при закрытии попапы также плавно закрывались
+Без второго класса - popup_disabled не придумал, как это реализовать. 
+убрать это?*/
 
 
-let profile = document.querySelector('.profile')
-let editButtonPopup = profile.querySelector('.profile__edit-button');
-let newPostButtonPopup = profile.querySelector('.profile__add-button');
-let profilePopup = document.querySelector('.popup_type-profile-edit')
-let newPostPopup = document.querySelector('.popup_type-new-post')
-let EditProfileFormElement = profilePopup.querySelector('.popup__form');
-let newPostFormElement = newPostPopup.querySelector('.popup__form');
-let newPostName = newPostFormElement.querySelector('.popup__input_name');
-let newPostLink = newPostFormElement.querySelector('.popup__input_description');
-let imagePopup = document.querySelector('.popup_type-image')
-let imagePopupLink = imagePopup.querySelector('.popup__image')
-let imagePopupName = imagePopup.querySelector('.popup__image-description')
-let closeEditPopup = profilePopup.querySelector('.popup__close-button');
-let closeNewPostPopup = newPostPopup.querySelector('.popup__close-button');
-let closeImagePopup = imagePopup.querySelector('.popup__close-button');
-let currentName = profile.querySelector('.profile__name');
-let currentJob = profile.querySelector('.profile__description');
-let ProfileNameInput = EditProfileFormElement.querySelector('.popup__input_name');
-let ProfileJobInput = EditProfileFormElement.querySelector('.popup__input_description');
 
+import {initialCards} from "./initialCards.js";
 
-/*
-Валидация формы,  проверка на длину введенного текста.
-*/
-function FormValidate(data) {
-    return data.length > 0;
-}
+const profile = document.querySelector('.profile')
+const editButtonPopup = profile.querySelector('.profile__edit-button');
+const newPostButtonPopup = profile.querySelector('.profile__add-button');
+const profilePopup = document.querySelector('.popup_type-profile-edit')
+const newPostPopup = document.querySelector('.popup_type-new-post')
+const editProfileFormElement = profilePopup.querySelector('.popup__form');
+const newPostFormElement = newPostPopup.querySelector('.popup__form');
+const newPostName = newPostFormElement.querySelector('.popup__input_name');
+const newPostLink = newPostFormElement.querySelector('.popup__input_description');
+const imagePopup = document.querySelector('.popup_type-image')
+const imagePopupLink = imagePopup.querySelector('.popup__image')
+const imagePopupName = imagePopup.querySelector('.popup__image-description')
+const closeEditPopup = profilePopup.querySelector('.popup__close-button');
+const closeNewPostPopup = newPostPopup.querySelector('.popup__close-button');
+const closeImagePopup = imagePopup.querySelector('.popup__close-button');
+const currentName = profile.querySelector('.profile__name');
+const currentJob = profile.querySelector('.profile__description');
+const profileNameInput = editProfileFormElement.querySelector('.popup__input_name');
+const profileJobInput = editProfileFormElement.querySelector('.popup__input_description');
+const postContainer = document.querySelector('.elements');
+const postTemplate = document.querySelector('#post-element').content;
 
 
 /*
 Функция заменяет имя и работу в профиле страницы.
 */
-function ProfileFormSubmitHandler(evt) {
+function profileFormSubmitHandler(evt) {
     evt.preventDefault();
-    if (FormValidate(ProfileNameInput.value)) {
-        currentName.textContent = ProfileNameInput.value;
-    }
-    if (FormValidate(ProfileJobInput.value)) {
-        currentJob.textContent = ProfileJobInput.value;
-    }
-    profilePopup.classList.toggle('popup_enabled');
+    currentName.textContent = profileNameInput.value;
+    currentJob.textContent = profileJobInput.value;
+    closePopup(profilePopup);
+}
 
+function openPopup(popup) {
+    popup.classList.add('popup_enabled');
+    popup.classList.remove('popup_disabled');
+}
 
+function closePopup(popup) {
+    popup.classList.remove('popup_enabled');
+    popup.classList.add('popup_disabled');
 }
 
 /*
 Функция забирает данные из формы и создает новый пост
 */
-function NewPostFormSubmitHandler(evt) {
+function newPostFormSubmitHandler(evt) {
     evt.preventDefault();
-    postCreate(newPostName.value, newPostLink.value);
-    newPostPopup.classList.toggle('popup_enabled');
+    let postElement = postCreate(newPostName.value, newPostLink.value);
+    postContainer.prepend(postElement)
+    closePopup(newPostPopup);
 }
 
 /*
 Функция отображает в полях формы текущие данные о пользователе
 */
-function PopupProfileEdit() {
-    profilePopup.classList.toggle('popup_enabled')
-    let textName = currentName.textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
-    let textJob = currentJob.textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
-    ProfileNameInput.value = textName;
-    ProfileJobInput.value = textJob;
+function popupProfileEdit() {
+    openPopup(profilePopup)
+    const textName = currentName.textContent.trim();
+    const textJob = currentJob.textContent.trim();
+    profileNameInput.value = textName;
+    profileJobInput.value = textJob;
 
 }
 
@@ -96,16 +77,12 @@ function PopupProfileEdit() {
 Функция создания поста
 */
 function postCreate(postName, postLink) {
-    const postContainer = document.querySelector('.elements');
-    const postTemplate = document.querySelector('#post-element').content;
 // клонируем содержимое тега template
     const postElement = postTemplate.querySelector('.element').cloneNode(true);
 // наполняем содержимым
     postElement.querySelector('.element__image').src = postLink;
-    console.log(postLink)
+    postElement.querySelector('.element__image').alt = postName;
     postElement.querySelector('.element__name').textContent = postName;
-// отображаем на странице
-    postContainer.prepend(postElement);
 // удаление поста
     const deleteButton = postElement.querySelector('.element__trash-button')
     deleteButton.addEventListener('click', () => {
@@ -114,75 +91,56 @@ function postCreate(postName, postLink) {
 // лайк поста
     const likeButton = postElement.querySelector('.element__like-button');
     likeButton.addEventListener('click', () => {
-
         likeButton.classList.toggle('element__like-button_enabled')
     })
 
     const imageButton = postElement.querySelector('.element__image');
     imageButton.addEventListener('click', () => {
         showImagePopup(postName, postLink)
-
-
     })
+    
+    return postElement;
+    
 }
 
 /*
 Функция отображения изображения в popup
 */
 function showImagePopup(postName, postLink) {
-    imagePopup.classList.add('popup_enabled');
-    imagePopup.classList.remove('popup_disable');
-
+    openPopup(imagePopup)
     imagePopupLink.src = postLink;
+    imagePopupLink.alt = postName;
     imagePopupName.textContent = postName;
-
-
 }
 
 /*
 Функция рендера стандартных постов на странице
 */
-function RenderInitialPosts() {
+function renderInitialPosts() {
     initialCards.forEach(function (item) {
-        postCreate(item.name, item.link)
+        let new_post = postCreate(item.name, item.link)
+        postContainer.prepend(new_post);
     });
 }
 
-
-editButtonPopup.addEventListener('click', PopupProfileEdit);
-EditProfileFormElement.addEventListener('submit', ProfileFormSubmitHandler);
-
-newPostFormElement.addEventListener('submit', NewPostFormSubmitHandler);
-
+editButtonPopup.addEventListener('click', popupProfileEdit);
+editProfileFormElement.addEventListener('submit', profileFormSubmitHandler);
+newPostFormElement.addEventListener('submit', newPostFormSubmitHandler);
 newPostButtonPopup.addEventListener('click', () => {
-    newPostPopup.classList.toggle('popup_enabled')
+    openPopup(newPostPopup)
 });
 
 
 closeEditPopup.addEventListener('click', () => {
-    profilePopup.classList.remove('popup_enabled')
-    profilePopup.classList.add('popup_disabled')
-
+    closePopup(profilePopup)
 });
 
-
 closeNewPostPopup.addEventListener('click', () => {
-    newPostPopup.classList.remove('popup_enabled')
-    newPostPopup.classList.add('popup_disabled')
+    closePopup(newPostPopup)
 });
 
 closeImagePopup.addEventListener('click', () => {
-    imagePopup.classList.remove('popup_enabled')
-    imagePopup.classList.add('popup_disabled')
+    closePopup(imagePopup)
 });
 
-
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-        imagePopup.classList.remove('popup_enabled')
-        imagePopup.classList.add('popup_disabled')
-        
-    }
-});
-
-RenderInitialPosts();
+renderInitialPosts();
