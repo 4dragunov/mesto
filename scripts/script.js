@@ -1,11 +1,3 @@
-/*Арина, здравствуйте!
-Большое спасибо за рьевью!) 
-Вопрос - я добавил классы "открытия и закрытия" только для того, чтобы при закрытии попапы также плавно закрывались
-Без второго класса - popup_disabled не придумал, как это реализовать. 
-убрать это?*/
-
-
-
 import {initialCards} from "./initialCards.js";
 
 const profile = document.querySelector('.profile')
@@ -34,7 +26,7 @@ const postTemplate = document.querySelector('#post-element').content;
 /*
 Функция заменяет имя и работу в профиле страницы.
 */
-function profileFormSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     currentName.textContent = profileNameInput.value;
     currentJob.textContent = profileJobInput.value;
@@ -54,9 +46,9 @@ function closePopup(popup) {
 /*
 Функция забирает данные из формы и создает новый пост
 */
-function newPostFormSubmitHandler(evt) {
+function handleCardFormSubmit(evt) {
     evt.preventDefault();
-    let postElement = postCreate(newPostName.value, newPostLink.value);
+    const postElement = createCard(newPostName.value, newPostLink.value);
     postContainer.prepend(postElement)
     closePopup(newPostPopup);
 }
@@ -64,10 +56,10 @@ function newPostFormSubmitHandler(evt) {
 /*
 Функция отображает в полях формы текущие данные о пользователе
 */
-function popupProfileEdit() {
+function openPopupEditProfile() {
     openPopup(profilePopup)
-    const textName = currentName.textContent.trim();
-    const textJob = currentJob.textContent.trim();
+    const textName = currentName.textContent;
+    const textJob = currentJob.textContent;
     profileNameInput.value = textName;
     profileJobInput.value = textJob;
 
@@ -76,12 +68,13 @@ function popupProfileEdit() {
 /*
 Функция создания поста
 */
-function postCreate(postName, postLink) {
+function createCard(postName, postLink) {
 // клонируем содержимое тега template
     const postElement = postTemplate.querySelector('.element').cloneNode(true);
 // наполняем содержимым
-    postElement.querySelector('.element__image').src = postLink;
-    postElement.querySelector('.element__image').alt = postName;
+    const imgElement = postElement.querySelector('.element__image');
+    imgElement.src = postLink;
+    imgElement.alt = postName;
     postElement.querySelector('.element__name').textContent = postName;
 // удаление поста
     const deleteButton = postElement.querySelector('.element__trash-button')
@@ -118,14 +111,14 @@ function showImagePopup(postName, postLink) {
 */
 function renderInitialPosts() {
     initialCards.forEach(function (item) {
-        let new_post = postCreate(item.name, item.link)
+        const new_post = createCard(item.name, item.link)
         postContainer.prepend(new_post);
     });
 }
 
-editButtonPopup.addEventListener('click', popupProfileEdit);
-editProfileFormElement.addEventListener('submit', profileFormSubmitHandler);
-newPostFormElement.addEventListener('submit', newPostFormSubmitHandler);
+editButtonPopup.addEventListener('click', openPopupEditProfile);
+editProfileFormElement.addEventListener('submit', handleProfileFormSubmit);
+newPostFormElement.addEventListener('submit', handleCardFormSubmit);
 newPostButtonPopup.addEventListener('click', () => {
     openPopup(newPostPopup)
 });
