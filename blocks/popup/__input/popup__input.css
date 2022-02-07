@@ -1,5 +1,7 @@
 .popup__input {
+    display: flex;
     width: 358px;
+    margin: 0 auto;
     height: 27px;
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, .2);

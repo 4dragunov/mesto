@@ -1,4 +1,4 @@
 .popup__input_description {
-    margin-top: 30px;
+    margin-top: calc(30px - 15px);
 
 }

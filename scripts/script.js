@@ -1,4 +1,5 @@
 import {initialCards} from "./initialCards.js";
+import {enableValidation} from "./validate.js";
 
 const profile = document.querySelector('.profile')
 const editButtonPopup = profile.querySelector('.profile__edit-button');
@@ -62,7 +63,7 @@ function openPopupEditProfile() {
     const textJob = currentJob.textContent;
     profileNameInput.value = textName;
     profileJobInput.value = textJob;
-
+    enableValidation();
 }
 
 /*
@@ -91,10 +92,11 @@ function createCard(postName, postLink) {
     imageButton.addEventListener('click', () => {
         showImagePopup(postName, postLink)
     })
-    
+
     return postElement;
-    
+
 }
+
 
 /*
 Функция отображения изображения в popup
@@ -104,6 +106,8 @@ function showImagePopup(postName, postLink) {
     imagePopupLink.src = postLink;
     imagePopupLink.alt = postName;
     imagePopupName.textContent = postName;
+
+
 }
 
 /*
@@ -136,4 +140,25 @@ closeImagePopup.addEventListener('click', () => {
     closePopup(imagePopup)
 });
 
+
+/*
+Закрытие popup с картинкой и удаление слушателя
+*/
+function closeImgPopup(evt) {
+    if (!evt.target.classList.contains('popup__image')) {
+        imagePopup.classList.remove('popup_enabled')
+        imagePopup.classList.add('popup_disabled')
+        evt.target.removeEventListener('click', closeImagePopup);
+    }
+};
+
+imagePopup.addEventListener('click', (evt) => {
+    closeImgPopup(evt);
+});
+
+document.addEventListener('keydown', (evt) => {
+    closeImgPopup(evt)
+});
+
 renderInitialPosts();
+

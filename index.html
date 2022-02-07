@@ -37,8 +37,10 @@
 			<h3 class="popup__title"> Редактировать профиль</h3>
 			<button class="popup__close-button popup__close-button_type-profile-edit" type="button"></button>
 			<form class="popup__form" name="edit" id="profileEdit">
-				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя">
-				<input type="text" class="popup__input popup__input_description" name="description" placeholder="Работа">
+				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя" id="name-input" minlength="2" maxlength="40" required>
+				<span class="popup__form-input-error name-input-error"></span>
+				<input type="text" class="popup__input popup__input_description" name="description" id="description-input" placeholder="Работа" minlength="2" maxlength="200" required>
+				<span class="popup__form-input-error description-input-error"></span>
 				<button type="submit" class="popup__save-button"> Сохранить</button>
 				
 			</form>
@@ -50,10 +52,13 @@
 			<h3 class="popup__title"> Новое место </h3>
 			<button class="popup__close-button popup__close-button_type-new-post" type="button"></button>
 			<form class="popup__form" name="newPost" id="newPost">
-				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название">
-				<input type="text" class="popup__input popup__input_description" name="description"
-							 placeholder="Ссылка на картинку">
-				<button type="submit" class="popup__save-button"> Создать</button>
+				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название" id="place-name-input" minlength="2" maxlength="30" required>
+				<span class="popup__form-input-error place-name-input-error"></span>
+				<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="description"
+							 placeholder="Ссылка на картинку" id="place-description-input" required>
+				<span class="popup__form-input-error place-description-input-error"></span>
+				
+				<button type="submit" class="popup__save-button popup__save-button_disabled"> Создать</button>
 			</form>
 		</div>
 	</div>
@@ -85,6 +90,7 @@
 </template>
 
 <script type="module" src="scripts/script.js"></script>
+<script type="module" src="scripts/validate.js"></script>
 
 </body>
 </html>
