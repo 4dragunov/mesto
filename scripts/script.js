@@ -1,6 +1,8 @@
 import {initialCards} from "./initialCards.js";
 import {enableValidation} from "./validate.js";
+import {config} from "./validate.js";
 
+const ESC_CODE = 'Escape'
 const profile = document.querySelector('.profile')
 const editButtonPopup = profile.querySelector('.profile__edit-button');
 const newPostButtonPopup = profile.querySelector('.profile__add-button');
@@ -33,15 +35,19 @@ function handleProfileFormSubmit(evt) {
     currentJob.textContent = profileJobInput.value;
     closePopup(profilePopup);
 }
-
+/*Добрый день, Антон! Большое спасибо за ревью, очень доходчиво и понятно
+Дело в том, что наличие двух классов обусловлено желанием сделать плавное закрытие поп-апа
+Если это ошибка - дайте знать, оперативно исключим это явление)*/
 function openPopup(popup) {
     popup.classList.add('popup_enabled');
     popup.classList.remove('popup_disabled');
+    document.addEventListener('keydown', closeByEsc)
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_enabled');
     popup.classList.add('popup_disabled');
+    document.removeEventListener('keydown', closeByEsc)
 }
 
 /*
@@ -52,6 +58,9 @@ function handleCardFormSubmit(evt) {
     const postElement = createCard(newPostName.value, newPostLink.value);
     postContainer.prepend(postElement)
     closePopup(newPostPopup);
+    newPostName.value = ''; 
+    newPostLink.value = '';
+    enableValidation(config);
 }
 
 /*
@@ -63,7 +72,7 @@ function openPopupEditProfile() {
     const textJob = currentJob.textContent;
     profileNameInput.value = textName;
     profileJobInput.value = textJob;
-    enableValidation();
+    enableValidation(config);
 }
 
 /*
@@ -115,10 +124,28 @@ function showImagePopup(postName, postLink) {
 */
 function renderInitialPosts() {
     initialCards.forEach(function (item) {
-        const new_post = createCard(item.name, item.link)
-        postContainer.prepend(new_post);
+        const newPost = createCard(item.name, item.link)
+        postContainer.prepend(newPost);
     });
 }
+
+function closeByEsc(evt) {
+    if (evt.key === ESC_CODE) {
+        const openedPopup = document.querySelector('.popup_enabled');
+        closePopup(openedPopup);
+    }
+}
+
+function closeByOverlayClick(evt) {
+    if (evt.target.classList.contains('popup')) {
+        const openedPopup = document.querySelector('.popup_enabled');
+        closePopup(openedPopup);
+    }
+}
+
+imagePopup.addEventListener('mousedown', closeByOverlayClick);
+profilePopup.addEventListener('mousedown', closeByOverlayClick);
+newPostPopup.addEventListener('mousedown', closeByOverlayClick);
 
 editButtonPopup.addEventListener('click', openPopupEditProfile);
 editProfileFormElement.addEventListener('submit', handleProfileFormSubmit);
@@ -126,8 +153,7 @@ newPostFormElement.addEventListener('submit', handleCardFormSubmit);
 newPostButtonPopup.addEventListener('click', () => {
     openPopup(newPostPopup)
 });
-
-
+    
 closeEditPopup.addEventListener('click', () => {
     closePopup(profilePopup)
 });
@@ -141,24 +167,7 @@ closeImagePopup.addEventListener('click', () => {
 });
 
 
-/*
-Закрытие popup с картинкой и удаление слушателя
-*/
-function closeImgPopup(evt) {
-    if (!evt.target.classList.contains('popup__image')) {
-        imagePopup.classList.remove('popup_enabled')
-        imagePopup.classList.add('popup_disabled')
-        evt.target.removeEventListener('click', closeImagePopup);
-    }
-};
-
-imagePopup.addEventListener('click', (evt) => {
-    closeImgPopup(evt);
-});
-
-document.addEventListener('keydown', (evt) => {
-    closeImgPopup(evt)
-});
-
 renderInitialPosts();
+
+
 
