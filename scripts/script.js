@@ -35,18 +35,15 @@ function handleProfileFormSubmit(evt) {
     currentJob.textContent = profileJobInput.value;
     closePopup(profilePopup);
 }
-/*Добрый день, Антон! Большое спасибо за ревью, очень доходчиво и понятно
-Дело в том, что наличие двух классов обусловлено желанием сделать плавное закрытие поп-апа
-Если это ошибка - дайте знать, оперативно исключим это явление)*/
+
+
 function openPopup(popup) {
     popup.classList.add('popup_enabled');
-    popup.classList.remove('popup_disabled');
     document.addEventListener('keydown', closeByEsc)
 }
 
 function closePopup(popup) {
     popup.classList.remove('popup_enabled');
-    popup.classList.add('popup_disabled');
     document.removeEventListener('keydown', closeByEsc)
 }
 
@@ -60,7 +57,9 @@ function handleCardFormSubmit(evt) {
     closePopup(newPostPopup);
     newPostName.value = ''; 
     newPostLink.value = '';
-    enableValidation(config);
+    const submitButton = newPostPopup.querySelector(config.submitButtonSelector);
+    disableButton(submitButton);
+
 }
 
 /*
@@ -72,7 +71,11 @@ function openPopupEditProfile() {
     const textJob = currentJob.textContent;
     profileNameInput.value = textName;
     profileJobInput.value = textJob;
-    enableValidation(config);
+}
+
+function disableButton(button) {
+    button.classList.add(config.inactiveButtonClass);
+    button.setAttribute("disabled", '');
 }
 
 /*
