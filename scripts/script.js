@@ -1,6 +1,7 @@
 import {initialCards} from "./initialCards.js";
 import {enableValidation} from "./validate.js";
 import {config} from "./validate.js";
+import {Card} from "./Card.js";
 
 const ESC_CODE = 'Escape'
 const profile = document.querySelector('.profile')
@@ -22,9 +23,8 @@ const currentName = profile.querySelector('.profile__name');
 const currentJob = profile.querySelector('.profile__description');
 const profileNameInput = editProfileFormElement.querySelector('.popup__input_name');
 const profileJobInput = editProfileFormElement.querySelector('.popup__input_description');
-const postContainer = document.querySelector('.elements');
+export const postContainer = document.querySelector('.elements');
 const postTemplate = document.querySelector('#post-element').content;
-
 
 /*
 Функция заменяет имя и работу в профиле страницы.
@@ -50,17 +50,17 @@ function closePopup(popup) {
 /*
 Функция забирает данные из формы и создает новый пост
 */
-function handleCardFormSubmit(evt) {
+/*function handleCardFormSubmit(evt) {
     evt.preventDefault();
-    const postElement = createCard(newPostName.value, newPostLink.value);
-    postContainer.prepend(postElement)
+    const postElement = new Card(newPostName.value, newPostLink.value, postTemplate);
+    postContainer.prepend(postElement.returnPost())
     closePopup(newPostPopup);
     newPostName.value = ''; 
     newPostLink.value = '';
     const submitButton = newPostPopup.querySelector(config.submitButtonSelector);
     disableButton(submitButton);
 
-}
+}*/
 
 /*
 Функция отображает в полях формы текущие данные о пользователе
@@ -77,10 +77,10 @@ function disableButton(button) {
     button.classList.add(config.inactiveButtonClass);
     button.setAttribute("disabled", '');
 }
-
 /*
+/!*
 Функция создания поста
-*/
+*!/
 function createCard(postName, postLink) {
 // клонируем содержимое тега template
     const postElement = postTemplate.querySelector('.element').cloneNode(true);
@@ -107,7 +107,7 @@ function createCard(postName, postLink) {
 
     return postElement;
 
-}
+}*/
 
 
 /*
@@ -127,8 +127,8 @@ function showImagePopup(postName, postLink) {
 */
 function renderInitialPosts() {
     initialCards.forEach(function (item) {
-        const newPost = createCard(item.name, item.link)
-        postContainer.prepend(newPost);
+        const newPost = new Card(item.name, item.link, postTemplate)
+        newPost.returnPost()
     });
 }
 
@@ -152,10 +152,10 @@ newPostPopup.addEventListener('mousedown', closeByOverlayClick);
 
 editButtonPopup.addEventListener('click', openPopupEditProfile);
 editProfileFormElement.addEventListener('submit', handleProfileFormSubmit);
-newPostFormElement.addEventListener('submit', handleCardFormSubmit);
+/*newPostFormElement.addEventListener('submit', handleCardFormSubmit);
 newPostButtonPopup.addEventListener('click', () => {
     openPopup(newPostPopup)
-});
+});*/
     
 closeEditPopup.addEventListener('click', () => {
     closePopup(profilePopup)
