@@ -1,7 +1,7 @@
 import {initialCards} from "./initialCards.js";
-import {enableValidation} from "./validate.js";
 import {config} from "./validate.js";
 import {Card} from "./Card.js";
+import {FormValidator} from  "./validate.js"
 
 const ESC_CODE = 'Escape'
 const profile = document.querySelector('.profile')
@@ -24,7 +24,7 @@ const currentJob = profile.querySelector('.profile__description');
 const profileNameInput = editProfileFormElement.querySelector('.popup__input_name');
 const profileJobInput = editProfileFormElement.querySelector('.popup__input_description');
 export const postContainer = document.querySelector('.elements');
-const postTemplate = document.querySelector('#post-element').content;
+const postTemplate = document.querySelector('#post-element');
 
 /*
 Функция заменяет имя и работу в профиле страницы.
@@ -50,17 +50,21 @@ function closePopup(popup) {
 /*
 Функция забирает данные из формы и создает новый пост
 */
-/*function handleCardFormSubmit(evt) {
+function handleCardFormSubmit(evt) {
     evt.preventDefault();
     const postElement = new Card(newPostName.value, newPostLink.value, postTemplate);
-    postContainer.prepend(postElement.returnPost())
+    handleAddCard(postElement.returnPost())
     closePopup(newPostPopup);
     newPostName.value = ''; 
     newPostLink.value = '';
     const submitButton = newPostPopup.querySelector(config.submitButtonSelector);
     disableButton(submitButton);
 
-}*/
+}
+
+function handleAddCard(postElement) {
+    postContainer.prepend(postElement)
+}
 
 /*
 Функция отображает в полях формы текущие данные о пользователе
@@ -78,48 +82,14 @@ function disableButton(button) {
     button.setAttribute("disabled", '');
 }
 /*
-/!*
-Функция создания поста
-*!/
-function createCard(postName, postLink) {
-// клонируем содержимое тега template
-    const postElement = postTemplate.querySelector('.element').cloneNode(true);
-// наполняем содержимым
-    const imgElement = postElement.querySelector('.element__image');
-    imgElement.src = postLink;
-    imgElement.alt = postName;
-    postElement.querySelector('.element__name').textContent = postName;
-// удаление поста
-    const deleteButton = postElement.querySelector('.element__trash-button')
-    deleteButton.addEventListener('click', () => {
-        postElement.remove();
-    })
-// лайк поста
-    const likeButton = postElement.querySelector('.element__like-button');
-    likeButton.addEventListener('click', () => {
-        likeButton.classList.toggle('element__like-button_enabled')
-    })
-
-    const imageButton = postElement.querySelector('.element__image');
-    imageButton.addEventListener('click', () => {
-        showImagePopup(postName, postLink)
-    })
-
-    return postElement;
-
-}*/
-
-
-/*
 Функция отображения изображения в popup
 */
-function showImagePopup(postName, postLink) {
+export function showImagePopup(postName, postLink) {
     openPopup(imagePopup)
     imagePopupLink.src = postLink;
     imagePopupLink.alt = postName;
     imagePopupName.textContent = postName;
-
-
+    
 }
 
 /*
@@ -128,7 +98,7 @@ function showImagePopup(postName, postLink) {
 function renderInitialPosts() {
     initialCards.forEach(function (item) {
         const newPost = new Card(item.name, item.link, postTemplate)
-        newPost.returnPost()
+        handleAddCard(newPost.returnPost())
     });
 }
 
@@ -152,10 +122,10 @@ newPostPopup.addEventListener('mousedown', closeByOverlayClick);
 
 editButtonPopup.addEventListener('click', openPopupEditProfile);
 editProfileFormElement.addEventListener('submit', handleProfileFormSubmit);
-/*newPostFormElement.addEventListener('submit', handleCardFormSubmit);
+newPostFormElement.addEventListener('submit', handleCardFormSubmit);
 newPostButtonPopup.addEventListener('click', () => {
     openPopup(newPostPopup)
-});*/
+});
     
 closeEditPopup.addEventListener('click', () => {
     closePopup(profilePopup)
@@ -168,6 +138,11 @@ closeNewPostPopup.addEventListener('click', () => {
 closeImagePopup.addEventListener('click', () => {
     closePopup(imagePopup)
 });
+
+const profileEditFormValidation = new FormValidator(config, editProfileFormElement);
+const postAddFormValidation = new FormValidator(config, newPostFormElement);
+profileEditFormValidation.enableValidation()
+postAddFormValidation.enableValidation()
 
 
 renderInitialPosts();

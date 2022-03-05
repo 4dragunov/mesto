@@ -1,46 +1,51 @@
+import {showImagePopup} from './script.js'
+
 /*
 Класс Card, который создаёт карточку с текстом и ссылкой на изображение:*/
-import {postContainer} from './script.js'
 export class Card {
     constructor(postName, postLink, template) {
         this._postName = postName;
         this._postLink = postLink;
-        this._template = template.cloneNode(true);
+        this._postElement = template.content.cloneNode(true);
     }
 
     _createPost() {
-        this._imgElement = this._template.querySelector('.element__image')
+        this._imgElement = this._postElement.querySelector('.element__image')
         this._imgElement.alt = this._postName;
         this._imgElement.src = this._postLink;
-        this._template.querySelector('.element__name').textContent = this._postName;
+        this._postElement.querySelector('.element__name').textContent = this._postName;
         this._postEventListener()
-        return this._template
+        return this._postElement
     }
 
-    _likePost(post){
-        post.toggle('element__like-button_enabled')
+    _likePost(post) {
+        post.toggle('element__like-button_enabled');
     }
 
-    _deletePost(post){
-        console.log(post)
-        post.remove()
-        
+    _deletePost(post) {
+        post.remove();
+
     }
 
-    _postEventListener(){
-        const likeButton = this._template.querySelector('.element__like-button')
-        const deleteButton = this._template.querySelector('.element__trash-button')
+    _postEventListener() {
+        const likeButton = this._postElement.querySelector('.element__like-button');
+        const deleteButton = this._postElement.querySelector('.element__trash-button');
+        const imageButton = this._postElement.querySelector('.element__image');
         likeButton.addEventListener('click', (evt) => {
             this._likePost(evt.target.classList)
         })
-        deleteButton.addEventListener('click', () => {
-            this._deletePost(this._template)
+        deleteButton.addEventListener('click', (evt) => {
+            this._deletePost(evt.target.closest('.element'))
         })
-   
+        imageButton.addEventListener('click', () => {
+            showImagePopup(this._postName, this._postLink)
+        })
+
+
     }
 
-    returnPost(){
+    returnPost() {
         const postElement = this._createPost()
-        postContainer.prepend(postElement)
+        return postElement
     }
 }
