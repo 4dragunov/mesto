@@ -1,9 +1,8 @@
 import {initialCards} from "./initialCards.js";
-import {config} from "./validate.js";
+import {config, FormValidator} from "./FormValidator.js";
 import {Card} from "./Card.js";
-import {FormValidator} from  "./validate.js"
+import {ESC_CODE} from "./utils/constants.js";
 
-const ESC_CODE = 'Escape'
 const profile = document.querySelector('.profile')
 const editButtonPopup = profile.querySelector('.profile__edit-button');
 const newPostButtonPopup = profile.querySelector('.profile__add-button');
@@ -16,15 +15,13 @@ const newPostLink = newPostFormElement.querySelector('.popup__input_description'
 const imagePopup = document.querySelector('.popup_type-image')
 const imagePopupLink = imagePopup.querySelector('.popup__image')
 const imagePopupName = imagePopup.querySelector('.popup__image-description')
-const closeEditPopup = profilePopup.querySelector('.popup__close-button');
-const closeNewPostPopup = newPostPopup.querySelector('.popup__close-button');
-const closeImagePopup = imagePopup.querySelector('.popup__close-button');
 const currentName = profile.querySelector('.profile__name');
 const currentJob = profile.querySelector('.profile__description');
 const profileNameInput = editProfileFormElement.querySelector('.popup__input_name');
 const profileJobInput = editProfileFormElement.querySelector('.popup__input_description');
 export const postContainer = document.querySelector('.elements');
 const postTemplate = document.querySelector('#post-element');
+const popups = document.querySelectorAll('.popup')
 
 /*
 Функция заменяет имя и работу в профиле страницы.
@@ -34,6 +31,7 @@ function handleProfileFormSubmit(evt) {
     currentName.textContent = profileNameInput.value;
     currentJob.textContent = profileJobInput.value;
     closePopup(profilePopup);
+    formValidators['edit'].resetValidation()
 }
 
 
@@ -52,18 +50,21 @@ function closePopup(popup) {
 */
 function handleCardFormSubmit(evt) {
     evt.preventDefault();
-    const postElement = new Card(newPostName.value, newPostLink.value, postTemplate);
-    handleAddCard(postElement.returnPost())
+    const newCard = createCard({name: newPostName.value, link:newPostLink.value, postTemplate, handleCardClick})
+    handleAddCard(newCard)
     closePopup(newPostPopup);
-    newPostName.value = ''; 
-    newPostLink.value = '';
-    const submitButton = newPostPopup.querySelector(config.submitButtonSelector);
-    disableButton(submitButton);
+    newPostFormElement.reset()
+    formValidators['newPost'].resetValidation()
+}
 
+
+function createCard(item) {
+    return new Card(item.name, item.link, postTemplate, handleCardClick)
 }
 
 function handleAddCard(postElement) {
-    postContainer.prepend(postElement)
+    const newCard = postElement.returnPost()
+    postContainer.prepend(newCard)
 }
 
 /*
@@ -77,28 +78,13 @@ function openPopupEditProfile() {
     profileJobInput.value = textJob;
 }
 
-function disableButton(button) {
-    button.classList.add(config.inactiveButtonClass);
-    button.setAttribute("disabled", '');
-}
-/*
-Функция отображения изображения в popup
-*/
-export function showImagePopup(postName, postLink) {
-    openPopup(imagePopup)
-    imagePopupLink.src = postLink;
-    imagePopupLink.alt = postName;
-    imagePopupName.textContent = postName;
-    
-}
-
 /*
 Функция рендера стандартных постов на странице
 */
 function renderInitialPosts() {
     initialCards.forEach(function (item) {
-        const newPost = new Card(item.name, item.link, postTemplate)
-        handleAddCard(newPost.returnPost())
+        const newCard = createCard(item)
+        handleAddCard(newCard)
     });
 }
 
@@ -110,15 +96,25 @@ function closeByEsc(evt) {
 }
 
 function closeByOverlayClick(evt) {
-    if (evt.target.classList.contains('popup')) {
-        const openedPopup = document.querySelector('.popup_enabled');
-        closePopup(openedPopup);
-    }
+    popups.forEach((popup) => {
+        popup.addEventListener('mousedown', (evt) => {
+            if (evt.target.classList.contains('popup_enabled')) {
+                closePopup(popup)
+            }
+            if (evt.target.classList.contains('popup__close-button')) {
+                closePopup(popup)
+            }
+        })
+    })
 }
 
-imagePopup.addEventListener('mousedown', closeByOverlayClick);
-profilePopup.addEventListener('mousedown', closeByOverlayClick);
-newPostPopup.addEventListener('mousedown', closeByOverlayClick);
+function handleCardClick(name, link) {
+    imagePopupLink.src = link;
+    imagePopupLink.alt = name;
+    imagePopupName.textContent = name;
+    openPopup(imagePopup)
+
+}
 
 editButtonPopup.addEventListener('click', openPopupEditProfile);
 editProfileFormElement.addEventListener('submit', handleProfileFormSubmit);
@@ -126,26 +122,27 @@ newPostFormElement.addEventListener('submit', handleCardFormSubmit);
 newPostButtonPopup.addEventListener('click', () => {
     openPopup(newPostPopup)
 });
-    
-closeEditPopup.addEventListener('click', () => {
-    closePopup(profilePopup)
-});
 
-closeNewPostPopup.addEventListener('click', () => {
-    closePopup(newPostPopup)
-});
+const formValidators = {}
 
-closeImagePopup.addEventListener('click', () => {
-    closePopup(imagePopup)
-});
-
-const profileEditFormValidation = new FormValidator(config, editProfileFormElement);
-const postAddFormValidation = new FormValidator(config, newPostFormElement);
-profileEditFormValidation.enableValidation()
-postAddFormValidation.enableValidation()
+// Включение валидации
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(config.formSelector))
+    formList.forEach((formElement) => {
+        const validator = new FormValidator(config, formElement)
+        // получаем данные из атрибута `name` у формы
+        const formName = formElement.getAttribute('name')
+        //в объект записываем под именем формы
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
+};
 
 
+closeByOverlayClick();
 renderInitialPosts();
+enableValidation(config);
+
 
 
 
