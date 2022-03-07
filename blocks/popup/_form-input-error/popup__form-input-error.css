@@ -1,5 +1,4 @@
 .popup__form-input-error {
-    display: flex;
     color: red;
     transition: 0.3s;
     opacity: 0;
@@ -9,9 +8,6 @@
     font-size: 12px;
     line-height: 15px;
     max-width: 358px;
-    /*
-    width: 100%;
-    */
     height: 12px;
     display: inline-block;
 
