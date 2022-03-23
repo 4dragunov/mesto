@@ -6,19 +6,18 @@
 	<meta name="description" content="Страница красивыми фотографиями и лайками">
 	<meta name="keywords" content="HTML5, CSS">
 	<meta name="author" content="Алексей Драгунов">
-	<link rel="stylesheet" href="pages/index.css">
 	<title>MESTO</title>
 </head>
 
 <body class="page">
 <header class="header">
-	<img src="images/logo.svg" class="header__logo" alt="Логотип">
+	<img src="<%=require('./images/logo.svg')%>" class="header__logo" alt="Логотип">
 </header>
 <main class="content">
 	
 	<section class="profile">
 		<div class="profile__content-wrap">
-			<img src="images/avatarimage.jpg" class="profile__avatar" alt="Аватарка">
+			<img src="<%=require('./images/avatarimage.jpg')%>" class="profile__avatar" alt="Аватарка">
 			<div class="profile__info">
 				<div class="profile__info-wrap">
 					<h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -54,7 +53,7 @@
 			<form class="popup__form" name="newPost" id="newPost">
 				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название" id="place-name-input" minlength="2" maxlength="30" required>
 				<span class="popup__form-input-error place-name-input-error"></span>
-				<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="description"
+				<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="link"
 							 placeholder="Ссылка на картинку" id="place-description-input" required>
 				<span class="popup__form-input-error place-description-input-error"></span>
 				
@@ -88,8 +87,6 @@
 		</div>
 	</div>
 </template>
-
-<script type="module" src="scripts/script.js"></script>
 
 </body>
 </html>

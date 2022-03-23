@@ -1,5 +1,3 @@
-/*
-Класс Card, который создаёт карточку с текстом и ссылкой на изображение:*/
 export class Card {
     constructor(postName, postLink, template, handleCardClick) {
         this._postName = postName;
@@ -13,7 +11,7 @@ export class Card {
         this._imgElement.alt = this._postName;
         this._imgElement.src = this._postLink;
         this._postElement.querySelector('.element__name').textContent = this._postName;
-        this._postEventListener()
+        this._postEventListener();
         return this._postElement
     }
 
@@ -33,16 +31,16 @@ export class Card {
             this._likePost(evt.target.classList)
         })
         deleteButton.addEventListener('click', (evt) => {
-            this._deletePost(evt.target.closest('.element'))
+            this._deletePost(evt.target.closest('.element'));
         })
         this._imgElement.addEventListener('click', () => {
-            this._handleCardClick(this._postName, this._postLink)
+            this._handleCardClick(this._postName, this._postLink);
         });
 
 
     }
 
     returnPost() {
-        return this._createPost()
+        return this._createPost();
     }
 }
