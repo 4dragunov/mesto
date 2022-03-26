@@ -21,6 +21,7 @@ export class Card {
 
     _deletePost(post) {
         post.remove();
+        this._element = null;
 
     }
 

@@ -4,8 +4,9 @@ export class UserInfo {
         this._description = document.querySelector(description);
     }
 
+
     getUserInfo() {
-        return {name: this._name, description: this._description}
+        return {name: this._name.textContent, description: this._description.textContent}
     }
 
     setUserInfo(data) {

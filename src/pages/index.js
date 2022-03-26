@@ -1,5 +1,5 @@
-import {initialCards} from "../components/initialCards.js";
-import {config, FormValidator} from "../components/FormValidator.js";
+import {initialCards} from "../components/utils/initialCards.js";
+import {FormValidator} from "../components/FormValidator.js";
 import {Card} from "../components/Card.js";
 import {Section} from "../components/Section.js";
 import {Popup} from "../components/Popup.js";
@@ -7,6 +7,7 @@ import {PopupWithImage} from "../components/PopupWithImage.js";
 import {PopupWithForm} from "../components/PopupWithForm.js";
 import {UserInfo} from "../components/UserInfo.js";
 import {
+    config,
     editButtonPopup,
     newPostButtonPopup,
     profileNameInput,
@@ -20,17 +21,17 @@ import './index.css';
 
 function handleProfileFormSubmit(data) {
     userInfo.setUserInfo(data);
-    popupProfile.close();
     formValidators['edit'].resetValidation();
+    popupEditForm.close();
+
 }
 
 function createCard(item) {
-    return new Card(item.name, item.link, postTemplate, handleCardClick)
+    return new Card(item.name, item.link, postTemplate, handleCardClick).returnPost()
 }
 
 function handleAddCard(postElement) {
-    const newCard = postElement.returnPost();
-    postContainer.prepend(newCard);
+    section.addItem(postElement);
 }
 
 const section = new Section(
@@ -38,7 +39,7 @@ const section = new Section(
     '.elements');
 
 function renderer(postElement) {
-    section.addItem(createCard(postElement).returnPost());
+    section.addItem(createCard(postElement));
 }
 
 section.renderItems();
@@ -50,9 +51,9 @@ const userInfo = new UserInfo(
 
 function openPopupEditProfile() {
     const profileInfo = userInfo.getUserInfo();
-    popupProfile.open();
-    profileNameInput.value = profileInfo.name.textContent;
-    profileJobInput.value = profileInfo.description.textContent;
+    popupEditForm.open();
+    profileNameInput.value = profileInfo.name;
+    profileJobInput.value = profileInfo.description;
 
 }
 
@@ -73,17 +74,12 @@ function handleCardClick(name, link) {
 
 editButtonPopup.addEventListener('click', openPopupEditProfile);
 newPostButtonPopup.addEventListener('click', () => {
-    popupAddPost.open();
+    popupNewPostForm.open();
 });
 
-
-const popupProfile = new Popup('.popup_type-profile-edit');
-popupProfile.setEventListeners();
-const popupAddPost = new Popup('.popup_type-new-post');
-popupAddPost.setEventListeners();
 const popupWithImage = new PopupWithImage('.popup_type-image');
 popupWithImage.setEventListeners();
-const popupEditForm = new PopupWithForm('.popup__form', handleProfileFormSubmit);
+const popupEditForm = new PopupWithForm('.popup_type-profile-edit', handleProfileFormSubmit);
 popupEditForm.setEventListeners();
 const popupNewPostForm = new PopupWithForm('.popup_type-new-post', handleCardFormSubmit);
 popupNewPostForm.setEventListeners();

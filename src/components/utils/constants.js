@@ -8,3 +8,13 @@ export const profileNameInput = editProfileFormElement.querySelector('.popup__in
 export const profileJobInput = editProfileFormElement.querySelector('.popup__input_description');
 export const postContainer = document.querySelector('.elements');
 export const postTemplate = document.querySelector('#post-element');
+
+export const config = {
+    popupSelector: '.popup__input_error',
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    inputErrorClass: 'popup__form-input-error_active',
+    errorClass: 'form__input-error_active'
+}
