@@ -1,8 +1,7 @@
-import {initialCards} from "../components/utils/initialCards.js";
+import {initialCards} from "../utils/initialCards.js";
 import {FormValidator} from "../components/FormValidator.js";
 import {Card} from "../components/Card.js";
 import {Section} from "../components/Section.js";
-import {Popup} from "../components/Popup.js";
 import {PopupWithImage} from "../components/PopupWithImage.js";
 import {PopupWithForm} from "../components/PopupWithForm.js";
 import {UserInfo} from "../components/UserInfo.js";
@@ -12,16 +11,14 @@ import {
     newPostButtonPopup,
     profileNameInput,
     profileJobInput,
-    postContainer,
     postTemplate
-} from "../components/utils/constants.js";
+} from "../utils/constants.js";
 import './index.css';
 
 
 
 function handleProfileFormSubmit(data) {
     userInfo.setUserInfo(data);
-    formValidators['edit'].resetValidation();
     popupEditForm.close();
 
 }
@@ -54,6 +51,7 @@ function openPopupEditProfile() {
     popupEditForm.open();
     profileNameInput.value = profileInfo.name;
     profileJobInput.value = profileInfo.description;
+    formValidators['edit'].resetValidation();
 
 }
 

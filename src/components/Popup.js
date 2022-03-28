@@ -1,4 +1,4 @@
-import {ESC_CODE} from "./utils/constants.js";
+import {ESC_CODE} from "../utils/constants.js";
 
 export class Popup {
     constructor(popupSelector) {
