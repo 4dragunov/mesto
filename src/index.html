@@ -17,7 +17,12 @@
 	
 	<section class="profile">
 		<div class="profile__content-wrap">
-			<img src="<%=require('./images/avatarimage.jpg')%>" class="profile__avatar" alt="Аватарка">
+			<!--
+						<img src="<%=require('./images/avatarimage.jpg')%>" class="profile__avatar" alt="Аватарка">
+			-->
+			<img src="#" class="profile__avatar" alt="Аватарка">
+			<button class="profile__avatar-edit"></button>
+			
 			<div class="profile__info">
 				<div class="profile__info-wrap">
 					<h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -36,12 +41,14 @@
 			<h3 class="popup__title"> Редактировать профиль</h3>
 			<button class="popup__close-button popup__close-button_type-profile-edit" type="button"></button>
 			<form class="popup__form" name="edit" id="profileEdit">
-				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя" id="name-input" minlength="2" maxlength="40" required>
+				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя" id="name-input"
+							 minlength="2" maxlength="40" required>
 				<span class="popup__form-input-error name-input-error"></span>
-				<input type="text" class="popup__input popup__input_description" name="description" id="description-input" placeholder="Работа" minlength="2" maxlength="200" required>
+				<input type="text" class="popup__input popup__input_description" name="description" id="description-input"
+							 placeholder="Работа" minlength="2" maxlength="200" required>
 				<span class="popup__form-input-error description-input-error"></span>
 				<button type="submit" class="popup__save-button"> Сохранить</button>
-				
+			
 			</form>
 		</div>
 	</div>
@@ -51,13 +58,23 @@
 			<h3 class="popup__title"> Новое место </h3>
 			<button class="popup__close-button popup__close-button_type-new-post" type="button"></button>
 			<form class="popup__form" name="newPost" id="newPost">
-				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название" id="place-name-input" minlength="2" maxlength="30" required>
+				<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название"
+							 id="place-name-input" minlength="2" maxlength="30" required>
 				<span class="popup__form-input-error place-name-input-error"></span>
 				<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="link"
 							 placeholder="Ссылка на картинку" id="place-description-input" required>
 				<span class="popup__form-input-error place-description-input-error"></span>
 				
 				<button type="submit" class="popup__save-button popup__save-button_disabled"> Создать</button>
+			</form>
+		</div>
+	</div>
+	<div class="popup popup_type-confirm">
+		<div class="popup__container popup__container_type-confirm">
+			<h3 class="popup__title"> Вы уверены? </h3>
+			<button class="popup__close-button popup__close-button_type-confirm" type="button"></button>
+			<form class="popup__form" name="deletePost" id="delPost">
+				<button type="submit" class="popup__confirm-button">Да</button>
 			</form>
 		</div>
 	</div>
@@ -69,6 +86,36 @@
 			<p class="popup__image-description">#</p>
 		</div>
 	</div>
+	
+	<div class="popup popup_type-edit-avatar">
+		<div class="popup__container popup__container_type-avatar-edit">
+			<h3 class="popup__title"> Обновить аватар </h3>
+			<button type="button" class="popup__close-button popup__close-button_type-confirm"></button>
+			<form class="popup__form" name="avatar_edit" name="avatarEdit" id="avatarEdit">
+				
+				<input type="url" pattern="https?://.+" class="popup__input popup__input_name" name="link"
+							 placeholder="Ссылка на картинку" id="place-link-input" required>
+				
+				<span class="popup__form-input-error place-link-input-error"></span>
+				<button type="submit" class="popup__save-button popup__save-button_disabled"> Сохранить</button>
+
+			</form>
+		</div>
+	</div>
+	
+	<!--
+	<form class="popup__form" name="newPost" id="newPost">
+		<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название"
+					 id="place-name-input" minlength="2" maxlength="30" required>
+		<span class="popup__form-input-error place-name-input-error"></span>
+		<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="link"
+					 placeholder="Ссылка на картинку" id="place-description-input" required>
+		<span class="popup__form-input-error place-description-input-error"></span>
+		
+		<button type="submit" class="popup__save-button popup__save-button_disabled"> Создать</button>
+	</form>-->
+
+
 </main>
 <footer class="footer">
 	<p class="footer__copyright">

@@ -1,5 +1,6 @@
 .profile__content-wrap {
     display: flex;
+    position: relative;
 }
 
 @media screen and (max-width: 870px) {

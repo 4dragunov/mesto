@@ -1,0 +1,6 @@
+.popup__container_type-confirm {
+    width: 430px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}

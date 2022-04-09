@@ -1,6 +1,5 @@
-.popup__save-button {
-    margin-top: calc(48px - 15px);
-    margin-bottom: 37px;
+.popup__confirm-button {
+    margin: 38px auto 36px;
     width: 358px;
     min-height: 50px;
     font-family: Inter, Arial, serif;
@@ -16,15 +15,15 @@
     border: 0;
     color: #FFFFFF;
 
-
 }
 
-.popup__save-button:hover {
+
+.popup__confirm-button:hover {
     opacity: .8;
 }
 
 @media screen and (max-width: 870px) {
-    .popup__save-button {
+    .popup__confirm-button {
         width: 238px;
         min-height: 46px;
     }
