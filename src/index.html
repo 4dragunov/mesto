@@ -64,7 +64,6 @@
 				<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="link"
 							 placeholder="Ссылка на картинку" id="place-description-input" required>
 				<span class="popup__form-input-error place-description-input-error"></span>
-				
 				<button type="submit" class="popup__save-button popup__save-button_disabled"> Создать</button>
 			</form>
 		</div>
@@ -74,7 +73,7 @@
 			<h3 class="popup__title"> Вы уверены? </h3>
 			<button class="popup__close-button popup__close-button_type-confirm" type="button"></button>
 			<form class="popup__form" name="deletePost" id="delPost">
-				<button type="submit" class="popup__confirm-button">Да</button>
+				<button type="submit" class="popup__save-button">Да</button>
 			</form>
 		</div>
 	</div>
@@ -92,29 +91,14 @@
 			<h3 class="popup__title"> Обновить аватар </h3>
 			<button type="button" class="popup__close-button popup__close-button_type-confirm"></button>
 			<form class="popup__form" name="avatar_edit" name="avatarEdit" id="avatarEdit">
-				
 				<input type="url" pattern="https?://.+" class="popup__input popup__input_name" name="link"
 							 placeholder="Ссылка на картинку" id="place-link-input" required>
-				
 				<span class="popup__form-input-error place-link-input-error"></span>
 				<button type="submit" class="popup__save-button popup__save-button_disabled"> Сохранить</button>
-
+			
 			</form>
 		</div>
 	</div>
-	
-	<!--
-	<form class="popup__form" name="newPost" id="newPost">
-		<input type="text" class="popup__input popup__input_name" name="name" placeholder="Название"
-					 id="place-name-input" minlength="2" maxlength="30" required>
-		<span class="popup__form-input-error place-name-input-error"></span>
-		<input type="url" pattern="https?://.+" class="popup__input popup__input_description" name="link"
-					 placeholder="Ссылка на картинку" id="place-description-input" required>
-		<span class="popup__form-input-error place-description-input-error"></span>
-		
-		<button type="submit" class="popup__save-button popup__save-button_disabled"> Создать</button>
-	</form>-->
-
 
 </main>
 <footer class="footer">
@@ -130,10 +114,16 @@
 		<img src="#" class="element__image" alt="Изображение">
 		<div class="element__wrap">
 			<h2 class="element__name">#</h2>
-			<button class="element__like-button" type="button"></button>
+			<div class="element__like-container">
+				<button type="button" class="element__like-button"></button>
+				<p class="element__like-counter">3</p>
+			</div>
+		
 		</div>
 	</div>
 </template>
 
 </body>
 </html>
+
+

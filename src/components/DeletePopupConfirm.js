@@ -1,6 +1,4 @@
 import {Popup} from "./Popup";
-import {postTemplate} from "../utils/constants";
-
 export class DeletePopupConfirm extends Popup {
     constructor(popupSelector) {
         super(popupSelector);
@@ -21,11 +19,6 @@ export class DeletePopupConfirm extends Popup {
 
 }
 
-/*    setEventListeners() {
-        super.setEventListeners()
-        this._popup.addEventListener('submit', this._handleConfirmDelete);
-
-    }*/
 
     setEventListeners() {
         super.setEventListeners();
@@ -35,8 +28,4 @@ export class DeletePopupConfirm extends Popup {
         })
     }
 
-  /*  _handleConfirmDelete = (evt) => {
-        evt.preventDefault();
-        this._deletePost();
-    }*/
 }

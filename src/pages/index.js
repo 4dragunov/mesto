@@ -23,13 +23,12 @@ const userInfo = new UserInfo(
     '.profile__name',
     '.profile__description',
     '.profile__avatar',
-
 );
 
 Promise.all([api.getInitialCards(), api.getUserInfo()])
     .then(([initialCards, userData]) => {
-        section.renderItems(initialCards.reverse());
         userInfo.setUserInfo(userData);
+        section.renderItems(initialCards.reverse());
     })
     .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -41,7 +40,7 @@ const section = new Section(
     '.elements');
 
 function handleProfileFormSubmit(data) {
-    popupEditForm.statusRender(true)
+    popupEditForm.statusRender('Сохранение..')
     api.setUserInfo(data)
         .then(data => {
             userInfo.setUserInfo(data);
@@ -51,43 +50,55 @@ function handleProfileFormSubmit(data) {
             console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
-            popupEditForm.statusRender(false)
+            popupEditForm.statusRender('Сохранить')
         });
 
 }
 
+function handleLikePost(postId, card) {
+    api.setLike(postId)
+        .then((data) => {
+            card.likePost(data)
+        })
+        .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+        });
+}
+
+
+function handleDisLikePost(postId, card) {
+    api.delLike(postId)
+        .then((data) => {
+            card.disLikePost(data)
+        })
+        .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+        });
+}
+
 function handleDeleteCardSubmit(postId, card) {
-    console.log(postId, card)
     popupConfirmDelete.open()
     popupConfirmDelete.confirmDelete(() => {
+        popupConfirmDelete.statusRender('Удаляем..')
         api.deleteCard(postId)
             .then(() => {
                 popupConfirmDelete.close();
-                card.remove();
+                card.remove()
             })
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
+            })
+            .finally(() => {
+                popupConfirmDelete.statusRender('Да')
             });
     });
 }
 
 
 function createCard(data) {
-    console.log(userInfo.getUserId())
-    const post = new Card(data, userInfo.getUserId(), postTemplate, handleCardClick, handleDeleteCardSubmit)
+    const post = new Card(data, userInfo, postTemplate, handleCardClick, handleDeleteCardSubmit, handleLikePost, handleDisLikePost)
     return post.returnPost()
-    /*
-        return new Card(item.name, item.link, postTemplate, handleCardClick, handleDeleteCardSubmit).returnPost()
-    */
 }
-/*
-function createCard(item) {
-    const post = new Card(item.name, item.link, postTemplate, handleCardClick, handleDeleteCardSubmit)
-    return post.returnPost()
-    /!*
-        return new Card(item.name, item.link, postTemplate, handleCardClick, handleDeleteCardSubmit).returnPost()
-    *!/
-}*/
 
 
 function handleAddCard(postElement) {
@@ -102,7 +113,6 @@ function renderer(postElement) {
 section.renderItems();
 
 
-
 function openPopupEditProfile() {
     const profileInfo = userInfo.getUserInfo();
     popupEditForm.open();
@@ -114,20 +124,17 @@ function openPopupEditProfile() {
 
 
 function handleCardFormSubmit(data) {
-    popupNewPostForm.statusRender(true)
+    popupNewPostForm.statusRender('Создание..')
     api.addCard(data)
         .then(data => {
-            const newCard = createCard({name: data.name, link: data.link});
-/*
-            const newCard = createCard({name: data.name, link: data.link});
-*/
+            const newCard = createCard(data);
             handleAddCard(newCard);
         })
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
-            popupNewPostForm.statusRender(false)
+                popupNewPostForm.statusRender('Создать')
             }
         )
     popupNewPostForm.close();
@@ -152,7 +159,7 @@ editButtonAvatar.addEventListener('click', () => {
 
 function handleEditAvatar() {
     popupEditAvatarForm.open()
-    popupEditAvatarForm.statusRender(true)
+    popupEditAvatarForm.statusRender('Сохраняем..')
     const link = popupEditAvatarForm._getInputValues().link
     api.editAvatar(link)
         .then(link => {
@@ -164,7 +171,7 @@ function handleEditAvatar() {
             console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
-            popupEditAvatarForm.statusRender(false)
+            popupEditAvatarForm.statusRender('Сохранить')
         });
     formValidators['avatar_edit'].resetValidation();
 
