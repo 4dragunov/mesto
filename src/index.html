@@ -17,9 +17,6 @@
 	
 	<section class="profile">
 		<div class="profile__content-wrap">
-			<!--
-						<img src="<%=require('./images/avatarimage.jpg')%>" class="profile__avatar" alt="Аватарка">
-			-->
 			<img src="#" class="profile__avatar" alt="Аватарка">
 			<button class="profile__avatar-edit"></button>
 			
@@ -90,12 +87,11 @@
 		<div class="popup__container popup__container_type-avatar-edit">
 			<h3 class="popup__title"> Обновить аватар </h3>
 			<button type="button" class="popup__close-button popup__close-button_type-confirm"></button>
-			<form class="popup__form" name="avatar_edit" name="avatarEdit" id="avatarEdit">
+			<form class="popup__form"  name="avatarEdit" id="avatarEdit">
 				<input type="url" pattern="https?://.+" class="popup__input popup__input_name" name="link"
 							 placeholder="Ссылка на картинку" id="place-link-input" required>
 				<span class="popup__form-input-error place-link-input-error"></span>
 				<button type="submit" class="popup__save-button popup__save-button_disabled"> Сохранить</button>
-			
 			</form>
 		</div>
 	</div>
