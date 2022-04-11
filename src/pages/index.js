@@ -55,8 +55,8 @@ function handleProfileFormSubmit(data) {
 
 }
 
-function handleLikePost(postId, card) {
-    api.setLike(postId)
+function handleLikePost(card) {
+    api.setLike(card._postID)
         .then((data) => {
             card.likePost(data)
         })
@@ -68,8 +68,8 @@ function handleLikePost(postId, card) {
 }
 
 
-function handleDisLikePost(postId, card) {
-    api.delLike(postId)
+function handleDisLikePost(card) {
+    api.delLike(card._postID)
         .then((data) => {
             card.likePost(data)
         })
@@ -79,14 +79,21 @@ function handleDisLikePost(postId, card) {
 
 }
 
-function handleDeleteCardSubmit(postId, card) {
+function handleDeleteCardSubmit(card, selector) {
+    console.log(this)
     popupConfirmDelete.open()
     popupConfirmDelete.confirmDelete(() => {
         popupConfirmDelete.statusRender('Удаляем..')
-        api.deleteCard(postId)
+        api.deleteCard(card._postID)
             .then(() => {
                 popupConfirmDelete.close();
-                card.remove()
+/*
+                2 дня мучаюсь - не работает, уже весь оверфло перечитал, никак! помогите, пожалуйста)
+                выводит this._postelement.remove is not a function
+
+                card.deletePost()
+*/
+                selector.remove()
             })
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);

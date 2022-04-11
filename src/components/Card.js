@@ -65,19 +65,26 @@ export class Card {
         }
     }
 
+    deletePost() {
+
+        this._postElement.remove()
+    }
+
 
     _postEventListener() {
         this._likeButton.addEventListener('click', () => {
             if (this._checkLike()) {
-                this._handleDisLikePost(this._postID, this)
+                this._handleDisLikePost(this)
             } else {
-                this._handleLikePost(this._postID, this)
+                this._handleLikePost(this)
 
             }
         })
 
         this._deleteButton.addEventListener('click', (evt) => {
-            this._handleDeleteCardSubmit(this._postID, evt.target.closest('.element'));
+            this._handleDeleteCardSubmit(this, evt.target.closest('.element'));
+
+
 
 
         })
