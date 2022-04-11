@@ -38,13 +38,12 @@ export class Api {
             .then(res => this._checkResponse(res));
     }
 
-    editAvatar(link) {
+    editAvatar(data) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
-
             body: JSON.stringify({
-                avatar: link
+                avatar: data.link
             })
         })
             .then(res => this._checkResponse(res));

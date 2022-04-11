@@ -5,20 +5,9 @@ export class DeletePopupConfirm extends Popup {
         this._form = this._popup.querySelector('.popup__form');
     }
 
-    open() {
-        super.open();
-    }
-
-    close() {
-        super.close();
-    }
-
     confirmDelete(action) {
         this._action = action
-
-
 }
-
 
     setEventListeners() {
         super.setEventListeners();

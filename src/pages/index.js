@@ -63,17 +63,20 @@ function handleLikePost(postId, card) {
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
         });
+
+
 }
 
 
 function handleDisLikePost(postId, card) {
     api.delLike(postId)
         .then((data) => {
-            card.disLikePost(data)
+            card.likePost(data)
         })
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
         });
+
 }
 
 function handleDeleteCardSubmit(postId, card) {
@@ -129,6 +132,7 @@ function handleCardFormSubmit(data) {
         .then(data => {
             const newCard = createCard(data);
             handleAddCard(newCard);
+            popupNewPostForm.close();
         })
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
@@ -137,8 +141,7 @@ function handleCardFormSubmit(data) {
                 popupNewPostForm.statusRender('Создать')
             }
         )
-    popupNewPostForm.close();
-    formValidators['newPost'].resetValidation();
+
 
 }
 
@@ -150,22 +153,21 @@ function handleCardClick(name, link) {
 
 editButtonPopup.addEventListener('click', openPopupEditProfile);
 newPostButtonPopup.addEventListener('click', () => {
+    formValidators['newPost'].resetValidation();
     popupNewPostForm.open();
 });
 editButtonAvatar.addEventListener('click', () => {
+    formValidators['avatarEdit'].resetValidation();
     popupEditAvatarForm.open()
-})
+});
 
 
-function handleEditAvatar() {
-    popupEditAvatarForm.open()
+function handleEditAvatar(data) {
     popupEditAvatarForm.statusRender('Сохраняем..')
-    const link = popupEditAvatarForm._getInputValues().link
-    api.editAvatar(link)
-        .then(link => {
-            userInfo.updateAvatar(link);
+    api.editAvatar(data)
+        .then(data => {
+            userInfo.updateAvatar(data);
             popupEditAvatarForm.close();
-            console.log(link)
         })
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
@@ -173,7 +175,6 @@ function handleEditAvatar() {
         .finally(() => {
             popupEditAvatarForm.statusRender('Сохранить')
         });
-    formValidators['avatar_edit'].resetValidation();
 
 
 }
