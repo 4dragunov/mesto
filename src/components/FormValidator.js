@@ -1,5 +1,3 @@
-import {config} from "../utils/constants.js";
-
 export class FormValidator {
     constructor(config, formElement) {
         this._config = config;
@@ -26,10 +24,8 @@ export class FormValidator {
     _checkInputValidity(inputElement) {
         if (!inputElement.validity.valid) {
             this._showInputError(inputElement, inputElement.validationMessage);
-            inputElement.classList.add(this._config.popupSelector)
         } else {
             this._hideInputError(inputElement);
-            inputElement.classList.remove(config.popupSelector)
         }
 
     };

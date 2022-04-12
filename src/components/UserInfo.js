@@ -17,14 +17,8 @@ export class UserInfo {
         this._description.textContent = data.about;
         this._avatar.src = data.avatar;
         this._userID = data._id;
-
-
     }
 
-    updateAvatar(data) {
-        this._avatar.src = data.avatar;
-
-    }
 
     getUserId() {
         return this._userID

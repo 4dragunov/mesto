@@ -40,7 +40,7 @@ const section = new Section(
     '.elements');
 
 function handleProfileFormSubmit(data) {
-    popupEditForm.statusRender('Сохранение..')
+    popupEditForm.renderLoading('Сохранение..')
     api.setUserInfo(data)
         .then(data => {
             userInfo.setUserInfo(data);
@@ -50,7 +50,7 @@ function handleProfileFormSubmit(data) {
             console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
-            popupEditForm.statusRender('Сохранить')
+            popupEditForm.renderLoading('Сохранить')
         });
 
 }
@@ -79,27 +79,20 @@ function handleDisLikePost(card) {
 
 }
 
-function handleDeleteCardSubmit(card, selector) {
-    console.log(this)
+function handleDeleteCardSubmit(card) {
     popupConfirmDelete.open()
     popupConfirmDelete.confirmDelete(() => {
-        popupConfirmDelete.statusRender('Удаляем..')
+        popupConfirmDelete.renderLoading('Удаляем..')
         api.deleteCard(card._postID)
             .then(() => {
                 popupConfirmDelete.close();
-/*
-                2 дня мучаюсь - не работает, уже весь оверфло перечитал, никак! помогите, пожалуйста)
-                выводит this._postelement.remove is not a function
-
                 card.deletePost()
-*/
-                selector.remove()
             })
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             })
             .finally(() => {
-                popupConfirmDelete.statusRender('Да')
+                popupConfirmDelete.renderLoading('Да')
             });
     });
 }
@@ -111,16 +104,9 @@ function createCard(data) {
 }
 
 
-function handleAddCard(postElement) {
-    section.addItem(postElement);
-}
-
-
 function renderer(postElement) {
     section.addItem(createCard(postElement));
 }
-
-section.renderItems();
 
 
 function openPopupEditProfile() {
@@ -129,23 +115,20 @@ function openPopupEditProfile() {
     profileNameInput.value = profileInfo.name;
     profileJobInput.value = profileInfo.about;
     formValidators['edit'].resetValidation();
-
 }
 
-
 function handleCardFormSubmit(data) {
-    popupNewPostForm.statusRender('Создание..')
+    popupNewPostForm.renderLoading('Создание..')
     api.addCard(data)
         .then(data => {
-            const newCard = createCard(data);
-            handleAddCard(newCard);
+            renderer(data)
             popupNewPostForm.close();
         })
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
-                popupNewPostForm.statusRender('Создать')
+                popupNewPostForm.renderLoading('Создать')
             }
         )
 
@@ -170,17 +153,17 @@ editButtonAvatar.addEventListener('click', () => {
 
 
 function handleEditAvatar(data) {
-    popupEditAvatarForm.statusRender('Сохраняем..')
+    popupEditAvatarForm.renderLoading('Сохраняем..')
     api.editAvatar(data)
         .then(data => {
-            userInfo.updateAvatar(data);
+            userInfo.setUserInfo(data);
             popupEditAvatarForm.close();
         })
         .catch((err) => {
             console.log(`Ошибка: ${err}`);
         })
         .finally(() => {
-            popupEditAvatarForm.statusRender('Сохранить')
+            popupEditAvatarForm.renderLoading('Сохранить')
         });
 
 

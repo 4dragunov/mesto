@@ -18,8 +18,10 @@ export class Popup {
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
-    statusRender(status) {
-        this._submitButton.textContent = status
+    renderLoading(status) {
+        if (this._submitButton) {
+            this._submitButton.textContent = status
+        }
     }
 
     _handleEscClose(evt) {
@@ -31,7 +33,7 @@ export class Popup {
 
     setEventListeners() {
         this._popup.querySelector('.popup__close-button').addEventListener('click', () => this.close());
-        this._popup.addEventListener("click", (evt) => {
+        this._popup.addEventListener("mousedown", (evt) => {
             if (evt.target.classList.contains('popup')) {
                 this.close();
             }

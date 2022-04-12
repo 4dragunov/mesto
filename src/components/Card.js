@@ -1,6 +1,6 @@
 export class Card {
     constructor(data, userInfo, template, handleCardClick, handleDeleteCardSubmit, handleLikePost, handleDisLikePost) {
-        this._postElement = template.cloneNode(true);
+        this._postElement = template.querySelector('.element').cloneNode(true);
         this._postName = data.name;
         this._postLink = data.link;
         this._postID = data._id;
@@ -66,7 +66,6 @@ export class Card {
     }
 
     deletePost() {
-
         this._postElement.remove()
     }
 
@@ -81,8 +80,8 @@ export class Card {
             }
         })
 
-        this._deleteButton.addEventListener('click', (evt) => {
-            this._handleDeleteCardSubmit(this, evt.target.closest('.element'));
+        this._deleteButton.addEventListener('click', () => {
+            this._handleDeleteCardSubmit(this);
 
 
 

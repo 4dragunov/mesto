@@ -9,10 +9,6 @@ export class PopupWithForm extends Popup {
 
     }
 
-    statusRender(status) {
-        super.statusRender(status);
-    }
-
     _getInputValues() {
         this._formDataValues = {};
         this._inputList.forEach(input => {
